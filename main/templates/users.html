@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="text-2xl font-semibold text-primary mb-4">Users</h2>
+
+<div class="bg-white shadow-md rounded-lg overflow-hidden">
+
+<table class="min-w-full text-sm text-gray-700">
+
+    <thead class="bg-primary text-white">
+        <tr>
+            <th class="px-4 py-2">ID</th>
+            <th class="px-4 py-2">Name</th>
+            <th class="px-4 py-2">Blood Group</th>
+            <th class="px-4 py-2">Contact</th>
+            <th class="px-4 py-2">Address</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for row in data %}
+        <tr class="border-b hover:bg-gray-100 text-center" >
+            <td class="px-15 py-2">{{ row.0 }}</td>
+            <td class="px-15 py-2">{{ row.1 }}</td>
+            <td class="px-15 py-2">{{ row.2 }}</td>
+            <td class="px-15 py-2">{{ row.3 }}</td>
+            <td class="px-15 py-2">{{ row.4 }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

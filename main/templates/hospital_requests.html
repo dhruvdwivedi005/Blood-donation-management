@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="text-xl text-red-700 mb-4">Blood Requests</h2>
+
+
+{% if error %}
+<div id="error-alert" class="fixed top-5 right-5 bg-red-600 text-white px-4 py-2 rounded shadow-lg z-50">
+    {{ error }}
+</div>
+{% endif %}
+
+<table class="min-w-full bg-white shadow rounded">
+
+<thead class="bg-red-700 text-white">
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Contact</th>
+    <th>Blood Group</th>
+    <th>Units</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+{% for row in data %}
+<tr class="text-center border-b">
+
+    <td>{{ row.0 }}</td>
+    <td>{{ row.1 }}</td>
+    <td>{{ row.2 }}</td>
+    <td>{{ row.3 }}</td>
+    <td>{{ row.4 }}</td>
+    <td>{{ row.5 }}</td>
+
+    <td>
+        {% if row.5 != "APPROVED" %}
+            <a href="/process/{{ row.0 }}/"
+               class="bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700">
+               Approve
+            </a>
+        {% else %}
+            <span class="text-green-600 font-semibold">Approved</span>
+        {% endif %}
+    </td>
+
+</tr>
+{% endfor %}
+</tbody>
+
+</table>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(() => {
+            const alert = document.getElementById('error-alert');
+            console.log(alert)
+        if (alert) {
+            alert.style.opacity = '100%';
+            let i = 100;
+            const interval = setInterval(() => {
+                i--;
+                alert.style.opacity = i.toString() + '%'
+            }, 15);
+            setTimeout(() => {
+                clearInterval(interval)
+                alert.style.display = 'none'
+            }, 15 * 100);
+        }
+    }, 1000);
+});
+</script>
+{% endblock %}

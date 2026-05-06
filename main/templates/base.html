@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blood Management System</title>
+
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#b91c1c',
+                        secondary: '#991b1b'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+<!-- NAVBAR -->
+<nav class="bg-primary text-white shadow-md">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+
+        <h1 class="text-xl font-bold">BloodBank</h1>
+
+        <div class="space-x-4">
+
+        {% if request.session.role == 'user' %}
+
+            <a href="/user-dashboard/" class="hover:text-gray-200">Dashboard</a>
+            <a href="/my-requests/" class="hover:text-gray-200">My Requests</a>
+            <a href="/my-donations/" class="hover:text-gray-200">My Donations</a>
+            <a href="/logout/" class="hover:text-gray-200">Logout</a>
+
+        {% elif request.session.role == 'hospital' %}
+
+            <a href="/hospital-dashboard/" class="hover:text-gray-200">Dashboard</a>
+            <a href="/logout/" class="hover:text-gray-200">Logout</a>
+
+        {% else %}
+
+            <a href="/login/" class="hover:text-gray-200">Login</a>
+            <a href="/signup/" class="hover:text-gray-200">Signup</a>
+
+        {% endif %}
+
+        </div>
+
+    </div>
+</nav>
+
+<!-- CONTENT -->
+<div class="max-w-5xl mx-auto mt-6">
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+</body>
+</html>

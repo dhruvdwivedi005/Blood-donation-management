@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="text-2xl font-bold text-red-700 mb-6">User Dashboard</h2>
+
+<div class="grid grid-cols-2 gap-4">
+
+    <a href="/add-request/" class="bg-red-600 text-white p-4 rounded shadow hover:bg-red-700 text-center">
+        🩸 Request Blood
+    </a>
+
+    <a href="/add-donation/" class="bg-red-500 text-white p-4 rounded shadow hover:bg-red-600 text-center">
+        💉 Donate Blood
+    </a>
+
+    <a href="/my-requests/" class="bg-white p-4 rounded shadow text-center">
+        📄 My Requests
+    </a>
+
+    <a href="/my-donations/" class="bg-white p-4 rounded shadow text-center">
+        📦 My Donations
+    </a>
+
+</div>
+
+{% endblock %}

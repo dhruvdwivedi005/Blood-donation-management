@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="text-2xl font-bold text-red-700 mb-6">Hospital Dashboard</h2>
+
+<div class="grid grid-cols-2 gap-6">
+
+    <a href="/hospital-requests/" 
+       class="bg-red-600 text-white p-6 rounded shadow text-center hover:bg-red-700">
+        🩸 Manage Blood Requests
+    </a>
+
+    <a href="/hospital-donations/" 
+       class="bg-red-500 text-white p-6 rounded shadow text-center hover:bg-red-600">
+        💉 Manage Donations
+    </a>
+
+    <a href="/blood-stock/" 
+        class="bg-green-600 text-white p-6 rounded shadow text-center hover:bg-green-700">
+        🧪 View Blood Stock
+    </a>
+
+    <a href="/users/" 
+    class="bg-red-400 text-white p-6 rounded shadow text-center hover:bg-red-500">
+        👥 Active Volunteers
+    </a>
+
+</div>
+
+{% endblock %}

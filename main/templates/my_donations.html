@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="text-2xl font-semibold text-red-700 mb-6">
+    My Donations
+</h2>
+
+<div class="bg-white shadow-md rounded-lg overflow-hidden">
+
+<table class="min-w-full text-sm text-gray-700">
+
+    <thead class="bg-red-700 text-white">
+        <tr>
+            <th class="px-4 py-2">Donation ID</th>
+            <th class="px-4 py-2">Donation Date</th>
+            <th class="px-4 py-2">Unit Donated</th>
+            <th class="px-4 py-2">Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for row in data %}
+        <tr class="border-b text-center hover:bg-gray-50">
+
+            <td class="px-4 py-2">{{ row.0 }}</td>
+            <td class="px-4 py-2">{{ row.1 }}</td>
+            <td class="px-4 py-2">{{ row.2 }}</td>
+
+            <td class="px-4 py-2">
+                {% if row.3 == "APPROVED" %}
+                    <span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">
+                        Approved
+                    </span>
+                {% else %}
+                    <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs">
+                        Pending
+                    </span>
+                {% endif %}
+            </td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

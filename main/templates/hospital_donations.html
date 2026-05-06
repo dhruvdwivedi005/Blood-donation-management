@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="text-xl text-red-700 mb-4">Donation Requests</h2>
+
+<table class="min-w-full bg-white shadow rounded">
+
+<thead class="bg-red-700 text-white">
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Contact</th>
+    <th>Blood Group</th>
+    <th>Units</th>
+    <th>Date</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+{% for row in data %}
+<tr class="text-center border-b">
+
+    <td>{{ row.0 }}</td>  <!-- donation_id -->
+    <td>{{ row.1 }}</td>  <!-- name -->
+    <td>{{ row.2 }}</td>  <!-- contact -->
+    <td>{{ row.3 }}</td>  <!-- blood_group -->
+    <td>{{ row.4 }}</td>  <!-- units -->
+    <td>{{ row.5 }}</td>  <!-- date -->
+    <td>{{ row.6 }}</td>  <!-- status -->
+
+    <td>
+        {% if row.6 != "APPROVED" %}
+            <a href="/approve-donation/{{ row.0 }}/"
+               class="bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700">
+               Approve
+            </a>
+        {% else %}
+            <span class="text-green-600 font-semibold">Approved</span>
+        {% endif %}
+    </td>
+
+</tr>
+{% endfor %}
+</tbody>
+
+</table>
+
+{% endblock %}
