@@ -1,57 +1,61 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Signup</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+{% extends 'base.html' %}
 
-<body class="bg-gray-100 flex items-center justify-center h-screen">
+{% block content %}
 
-<div class="bg-white shadow-lg rounded-lg p-8 w-96">
+<div class="flex items-center justify-center min-h-[60vh]">
 
-    <h2 class="text-2xl font-bold text-center text-red-700 mb-6">
+<div class="bg-white shadow-xl rounded-lg p-8 w-full max-w-md">
+
+    <h2 class="text-3xl font-bold text-center text-primary mb-8 flex items-center justify-center">
+        <i class="fas fa-user-plus mr-2"></i>
         Create Account
     </h2>
 
-    <form method="POST">
+    <form method="POST" class="space-y-6">
         {% csrf_token %}
 
-        <div class="mb-3">
-            <input class="w-full border px-3 py-2 rounded" 
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+            <input class="w-full border-2 border-gray-300 px-4 py-3 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200" 
                    type="text" name="name" placeholder="Name" required>
         </div>
 
-        <div class="mb-3">
-            <input class="w-full border px-3 py-2 rounded" 
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Blood Group</label>
+            <input class="w-full border-2 border-gray-300 px-4 py-3 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200" 
                    type="text" name="blood_group" placeholder="Blood Group" required>
         </div>
 
-        <div class="mb-3">
-            <input class="w-full border px-3 py-2 rounded" 
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Contact</label>
+            <input class="w-full border-2 border-gray-300 px-4 py-3 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200" 
                    type="text" name="contact" placeholder="Contact" required>
         </div>
 
-        <div class="mb-3">
-            <input class="w-full border px-3 py-2 rounded" 
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
+            <input class="w-full border-2 border-gray-300 px-4 py-3 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200" 
                    type="text" name="address" placeholder="Address">
         </div>
 
-        <div class="mb-3">
-            <input class="w-full border px-3 py-2 rounded" 
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+            <input class="w-full border-2 border-gray-300 px-4 py-3 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200" 
                    type="password" name="password" placeholder="Password" required>
         </div>
 
-        <button class="w-full bg-red-700 text-white py-2 rounded hover:bg-red-800">
-            Sign Up
+        <button class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-lg hover:from-secondary hover:to-primary transition duration-300 shadow-lg font-semibold">
+            <i class="fas fa-user-plus mr-2"></i>Sign Up
         </button>
     </form>
 
-    <p class="text-center mt-4">
+    <p class="text-center mt-6 text-gray-600">
         Already have an account? 
-        <a href="/login/" class="text-red-700">Login</a>
+        <a href="/login/" class="text-primary hover:text-secondary font-semibold transition duration-200">Login</a>
     </p>
 
 </div>
 
-</body>
-</html>
+</div>
+
+{% endblock %}

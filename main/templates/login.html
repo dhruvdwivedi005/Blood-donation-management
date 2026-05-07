@@ -1,80 +1,77 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+{% extends 'base.html' %}
 
-<body class="bg-gray-100 flex items-center justify-center h-screen">
+{% block content %}
 
-<div class="bg-white shadow-lg rounded-lg p-8 w-96">
+<div class="flex items-center justify-center min-h-[60vh]">
 
-    <h2 class="text-2xl font-bold text-center text-red-700 mb-6">
+<div class="bg-white shadow-xl rounded-lg p-8 w-full max-w-md">
+
+    <h2 class="text-3xl font-bold text-center text-primary mb-8 flex items-center justify-center">
+        <i class="fas fa-sign-in-alt mr-2"></i>
         Blood Management Login
     </h2>
 
     
     {% if error %}
-    <div id="error-alert" class="fixed top-5 right-5 bg-red-600 text-white px-4 py-2 rounded shadow-lg z-50">
-        {{ error }}
+    <div id="error-alert" class="fixed top-20 right-5 bg-red-600 text-white px-4 py-3 rounded-lg shadow-lg z-50 border-l-4 border-red-800">
+        <i class="fas fa-exclamation-triangle mr-2"></i>{{ error }}
     </div>
     {% endif %}
     
-    <form method="POST">
+    <form method="POST" class="space-y-6">
         {% csrf_token %}
 
         <!-- Role Selection -->
-        <div class="mb-4">
-            <label class="block mb-1">Login As</label>
-            <select name="role" class="w-full border px-3 py-2 rounded">
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Login As</label>
+            <select name="role" class="w-full border-2 border-gray-300 px-4 py-3 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200">
                 <option value="user">User</option>
                 <option value="hospital">Hospital</option>
             </select>
         </div>
 
-        <div class="mb-4">
-            <label class="block mb-1">Contact</label>
-            <input type="text" name="contact" class="w-full border px-3 py-2 rounded" required>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Contact</label>
+            <input type="text" name="contact" class="w-full border-2 border-gray-300 px-4 py-3 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200" required>
         </div>
 
-        <div class="mb-4">
-            <label class="block mb-1">Password</label>
-            <input type="password" name="password" class="w-full border px-3 py-2 rounded" required>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+            <input type="password" name="password" class="w-full border-2 border-gray-300 px-4 py-3 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200" required>
         </div>
 
-        <button class="w-full bg-red-700 text-white py-2 rounded hover:bg-red-800">
-            Login
+        <button class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-lg hover:from-secondary hover:to-primary transition duration-300 shadow-lg font-semibold">
+            <i class="fas fa-sign-in-alt mr-2"></i>Login
         </button>
     </form>
 
-    <p class="text-center mt-4">
+    <p class="text-center mt-6 text-gray-600">
         New user? 
-        <a href="/signup/" class="text-red-700 hover:underline">Create Account</a>
+        <a href="/signup/" class="text-primary hover:text-secondary font-semibold transition duration-200">Create Account</a>
     </p>
 
 </div>
 
+</div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => {
             const alert = document.getElementById('error-alert');
-            console.log(alert)
-        if (alert) {
-            alert.style.opacity = '100%';
-            let i = 100;
-            const interval = setInterval(() => {
-                i--;
-                alert.style.opacity = i.toString() + '%'
-            }, 15);
-            setTimeout(() => {
-                clearInterval(interval)
-                alert.style.display = 'none'
-            }, 15 * 100);
-        }
-    }, 1000);
-});
+            if (alert) {
+                alert.style.opacity = '1';
+                let i = 100;
+                const interval = setInterval(() => {
+                    i -= 2;
+                    alert.style.opacity = i / 100;
+                }, 30);
+                setTimeout(() => {
+                    clearInterval(interval);
+                    alert.style.display = 'none';
+                }, 30 * 100);
+            }
+        }, 1000);
+    });
 </script>
 
-</body>
-</html>
+{% endblock %}

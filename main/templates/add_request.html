@@ -2,28 +2,42 @@
 
 {% block content %}
 
-<h2 class="text-2xl text-center text-primary mb-4">Request Blood</h2>
+<div class="flex items-center justify-center min-h-[60vh]">
 
-<div class="flex justify-center">
+    <div class="bg-white shadow-xl rounded-lg p-8 w-full max-w-md">
 
-    <form method="POST" class="bg-white shadow-md rounded-lg p-6 w-96">
-        {% csrf_token %}
+        <h2 class="text-3xl font-bold text-center text-primary mb-8 flex items-center justify-center">
+            <i class="fas fa-hand-holding-medical mr-2"></i>Request Blood
+        </h2>
 
-        <div class="mb-3">
-            <label class="block mb-1">Blood Group</label>
-            <input class="w-full border rounded px-3 py-2" type="text" name="blood_group" required>
-        </div>
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
 
-        <div class="mb-3">
-            <label class="block mb-1">Units Required</label>
-            <input class="w-full border rounded px-3 py-2" type="number" name="units" required>
-        </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Blood Group</label>
+                <input class="w-full border-2 border-gray-300 px-4 py-3 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200" type="text" name="blood_group" required>
+            </div>
 
-        <button class="w-full bg-primary text-white py-2 rounded hover:bg-secondary">
-            Submit Request
-        </button>
-    </form>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Units Required</label>
+                <input class="w-full border-2 border-gray-300 px-4 py-3 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 transition duration-200" type="number" name="units" required>
+            </div>
+
+            <button type="submit" class="w-full bg-gradient-to-r from-primary to-secondary text-white py-3 rounded-lg hover:from-secondary hover:to-primary transition duration-300 shadow-lg font-semibold" id="submit-btn">
+                <i class="fas fa-paper-plane mr-2"></i>Submit Request
+            </button>
+        </form>
+
+    </div>
 
 </div>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const btn = document.getElementById('submit-btn');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Submitting...';
+        btn.disabled = true;
+    });
+</script>
 
 {% endblock %}

@@ -239,10 +239,33 @@ def process_request_view(request, req_id):
         })
 
 def approve_donation_view(request, d_id):
-    with connection.cursor() as cursor:
-        cursor.execute("CALL approve_donation(%s);", [d_id])
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("CALL approve_donation(%s);", [d_id])
 
-    return redirect('/hospital-donations/')
+        return redirect('/hospital-donations/')
+
+    except Exception as e:
+        error_msg = str(e)
+
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                SELECT d.donation_id,
+                    u.name,
+                    u.contact,
+                    u.blood_group,
+                    d.units,
+                    d.donation_date,
+                    d.status
+                FROM blood_donation d
+                JOIN users u ON d.user_id = u.user_id
+            """)
+            data = cursor.fetchall()
+
+        return render(request, 'hospital_donations.html', {
+            'data': data,
+            'error': error_msg
+        })
 
 def hospital_donations(request):
     with connection.cursor() as cursor:
@@ -250,8 +273,8 @@ def hospital_donations(request):
             SELECT d.donation_id,
                 u.name,
                 u.contact,
-                u.blood_group,   -- 🔴 donor blood group
-                d.units,         -- 🔴 units donated
+                u.blood_group,   
+                d.units,         
                 d.donation_date,
                 d.status
             FROM blood_donation d

@@ -5,6 +5,7 @@
 
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <script>
         tailwind.config = {
@@ -20,32 +21,35 @@
     </script>
 </head>
 
-<body class="bg-gray-100 font-sans">
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 font-sans min-h-screen">
 
 <!-- NAVBAR -->
-<nav class="bg-primary text-white shadow-md">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+<nav class="bg-primary text-white shadow-lg">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
-        <h1 class="text-xl font-bold">BloodBank</h1>
+        <h1 class="text-2xl font-bold flex items-center">
+            <i class="fas fa-tint text-red-300 mr-2"></i>
+            BloodBank
+        </h1>
 
-        <div class="space-x-4">
+        <div class="space-x-6 flex items-center">
 
         {% if request.session.role == 'user' %}
 
-            <a href="/user-dashboard/" class="hover:text-gray-200">Dashboard</a>
-            <a href="/my-requests/" class="hover:text-gray-200">My Requests</a>
-            <a href="/my-donations/" class="hover:text-gray-200">My Donations</a>
-            <a href="/logout/" class="hover:text-gray-200">Logout</a>
+            <a href="/user-dashboard/" class="hover:text-red-200 transition duration-200 {% if request.path == '/user-dashboard/' %}font-semibold{% endif %}">Dashboard</a>
+            <a href="/my-requests/" class="hover:text-red-200 transition duration-200 {% if request.path == '/my-requests/' %}font-semibold{% endif %}">My Requests</a>
+            <a href="/my-donations/" class="hover:text-red-200 transition duration-200 {% if request.path == '/my-donations/' %}font-semibold{% endif %}">My Donations</a>
+            <a href="/logout/" class="hover:text-red-200 transition duration-200">Logout</a>
 
         {% elif request.session.role == 'hospital' %}
 
-            <a href="/hospital-dashboard/" class="hover:text-gray-200">Dashboard</a>
-            <a href="/logout/" class="hover:text-gray-200">Logout</a>
+            <a href="/hospital-dashboard/" class="hover:text-red-200 transition duration-200 {% if request.path == '/hospital-dashboard/' %}font-semibold{% endif %}">Dashboard</a>
+            <a href="/logout/" class="hover:text-red-200 transition duration-200">Logout</a>
 
         {% else %}
 
-            <a href="/login/" class="hover:text-gray-200">Login</a>
-            <a href="/signup/" class="hover:text-gray-200">Signup</a>
+            <a href="/login/" class="hover:text-red-200 transition duration-200 {% if request.path == '/login/' %}font-semibold{% endif %}">Login</a>
+            <a href="/signup/" class="hover:text-red-200 transition duration-200 {% if request.path == '/signup/' %}font-semibold{% endif %}">Signup</a>
 
         {% endif %}
 
@@ -55,7 +59,7 @@
 </nav>
 
 <!-- CONTENT -->
-<div class="max-w-5xl mx-auto mt-6">
+<div class="max-w-6xl mx-auto mt-8 px-4 pb-8">
 
     {% block content %}
     {% endblock %}
