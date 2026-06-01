@@ -40,15 +40,33 @@ def add_request(request):
 
 
 def login_view(request):
-    try:
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT 1")
-            result = cursor.fetchone()
+    if request.method == 'POST':
+        contact = request.POST.get('contact')
+        password = request.POST.get('password')
+        role = request.POST.get('role')
 
-        return HttpResponse(f"Database OK: {result}")
+        try:
+            with connection.cursor() as cursor:
 
-    except Exception as e:
-        return HttpResponse(f"DATABASE ERROR: {repr(e)}")
+                if role == 'hospital':
+                    cursor.execute(
+                        "SELECT hospital_id FROM hospital WHERE contact=%s AND password=%s",
+                        [contact, password]
+                    )
+
+                    hospital = cursor.fetchone()
+
+                    return HttpResponse(
+                        f"role={role}<br>"
+                        f"contact={contact}<br>"
+                        f"password={password}<br>"
+                        f"result={hospital}"
+                    )
+
+        except Exception as e:
+            return HttpResponse(f"ERROR: {repr(e)}")
+
+    return render(request, 'login.html')
 
 
 def signup_view(request):
