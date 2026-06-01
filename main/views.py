@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db import connection
 from django.contrib import messages
+from django.http import HttpResponse
 
 def show_users(request):
     with connection.cursor() as cursor:
@@ -74,7 +75,7 @@ def login_view(request):
             return render(request, 'login.html', {'error': 'Invalid contact or password'})
 
         except Exception as e:
-            return render(request, 'login.html', {'error': str(e)})
+            return HttpResponse(f"ERROR: {repr(e)}")
 
     return render(request, 'login.html')
 
