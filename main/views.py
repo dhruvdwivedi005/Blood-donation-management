@@ -48,23 +48,34 @@ def login_view(request):
         try:
             with connection.cursor() as cursor:
 
-                if role == 'hospital':
+                if role == 'user':
+                    cursor.execute(
+                        "SELECT user_id FROM users WHERE contact=%s AND password=%s",
+                        [contact, password]
+                    )
+                    user = cursor.fetchone()
+
+                    if user:
+                        request.session['user_id'] = user[0]
+                        request.session['role'] = 'user'
+                        return redirect('/user-dashboard/')
+
+                elif role == 'hospital':
                     cursor.execute(
                         "SELECT hospital_id FROM hospital WHERE contact=%s AND password=%s",
                         [contact, password]
                     )
-
                     hospital = cursor.fetchone()
 
-                    return HttpResponse(
-                        f"role={role}<br>"
-                        f"contact={contact}<br>"
-                        f"password={password}<br>"
-                        f"result={hospital}"
-                    )
+                    if hospital:
+                        request.session['hospital_id'] = hospital[0]
+                        request.session['role'] = 'hospital'
+                        return redirect('/hospital-dashboard/')
+
+            return render(request, 'login.html', {'error': 'Invalid contact or password'})
 
         except Exception as e:
-            return HttpResponse(f"ERROR: {repr(e)}")
+            return render(request, 'login.html', {'error': str(e)})
 
     return render(request, 'login.html')
 
