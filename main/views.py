@@ -40,44 +40,15 @@ def add_request(request):
 
 
 def login_view(request):
-    if request.method == 'POST':
-        contact = request.POST.get('contact')
-        password = request.POST.get('password')
-        role = request.POST.get('role')
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT 1")
+            result = cursor.fetchone()
 
-        try:
-            with connection.cursor() as cursor:
+        return HttpResponse(f"Database OK: {result}")
 
-                if role == 'user':
-                    cursor.execute(
-                        "SELECT user_id FROM users WHERE contact=%s AND password=%s",
-                        [contact, password]
-                    )
-                    user = cursor.fetchone()
-
-                    if user:
-                        request.session['user_id'] = user[0]
-                        request.session['role'] = 'user'
-                        return redirect('/user-dashboard/')
-
-                elif role == 'hospital':
-                    cursor.execute(
-                        "SELECT hospital_id FROM hospital WHERE contact=%s AND password=%s",
-                        [contact, password]
-                    )
-                    hospital = cursor.fetchone()
-
-                    if hospital:
-                        request.session['hospital_id'] = hospital[0]
-                        request.session['role'] = 'hospital'
-                        return redirect('/hospital-dashboard/')
-
-            return render(request, 'login.html', {'error': 'Invalid contact or password'})
-
-        except Exception as e:
-            return HttpResponse(f"ERROR: {repr(e)}")
-
-    return render(request, 'login.html')
+    except Exception as e:
+        return HttpResponse(f"DATABASE ERROR: {repr(e)}")
 
 
 def signup_view(request):
