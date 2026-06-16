@@ -6,6 +6,12 @@ A full-stack Blood Donation & Management System built with **Django**, **Postgre
 
 **Website:** https://web-production-bee26.up.railway.app/
 
+## 🧪 Demo Credentials
+
+### Hospital Login
+Contact: 9999999999
+Password: admin123
+
 ---
 
 ## ✨ Features
